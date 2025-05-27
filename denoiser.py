@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
-
+# Simple denoising class with u-net structure
 class Denoiser(nn.Module):
     def __init__(self):
         super().__init__()
@@ -20,3 +20,11 @@ class Denoiser(nn.Module):
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
         return self.conv3(x)
+
+
+def linear_beta_schedule(timesteps):
+    beta_start = 1e-4
+    beta_end = 0.02
+
+    return torch.linspace(beta_start, beta_end, timesteps)
+
